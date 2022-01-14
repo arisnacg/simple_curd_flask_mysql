@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Aplikasi CURD Sederhana</title>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <h1 align="center">Daftar Kegiatan</h1>
+                <hr>
+                <form action="/tambah" method="POST">
+                    <div class="from-group">
+                        <input type="text" name="nama" placeholder="Masukan Nama Kegiatan..." class="form-control" autofocus>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm mt-2">Tambahkan</button>
+                </form>
+                <table class="table table-striped table-bordered table-hover mt-5">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Kegiatan</th>
+                            <th>Status</th>
+                            <th class="text-center">Menu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if daftar_kegiatan %}
+                        {% for i in range(jumlah_kegiatan) %}
+                        <tr>
+                            <th>{{i+1}}</th>
+                            <td>{{daftar_kegiatan[i][1]}}</td>
+                            <td>
+                                {% if daftar_kegiatan[i][2] == True %}
+                                    <span class="text-success"><i class="fa fa-check-square mr-1"></i>Sudah</span>
+                                {% else %}
+                                    <span class="text-primary"><i class="fa fa-square mr-1"></i>Belum</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-sm btn-success mr-2" href="/centang/{{daftar_kegiatan[i][0]}}">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="/hapus/{{ daftar_kegiatan[i][0] }}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
